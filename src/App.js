@@ -30,6 +30,7 @@ function App() {
       }
     }
 
+    urlInput.current.value = '';
     setUrlsSet(new Set([...urlsSet, ...urlItems]));
     setUrls([...urls, ...newItems]);
   }
@@ -79,7 +80,7 @@ function App() {
 
   function updateUrls(url, status, result) {
     return urls.map(item => {
-      if (item.url === url) {
+      if (item.url === url && item.status !== 'resolved' && item.status !== 'rejected') {
         item.status = status;
         item.result = result;
       }
