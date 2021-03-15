@@ -15,28 +15,26 @@ function App() {
 
   function addNewUrlItem() {
     const urlItems = urlInput.current.value.split(',').map(item => item.trim());
+    const newItems = [];
 
-    const newItems = []; 
+    let tempSet = new Set([...urlsSet]);
     for (let i = 0; i < urlItems.length; i++) {
       if (urlItems[i]) {
         const newItem = {
           url: urlItems[i],
           status: 'wait',
-          isDuplicate: checkForDuplicate(urlItems[i]),
+          isDuplicate: tempSet.has(urlItems[i]),
           result: '',
         };
   
+        tempSet.add(urlItems[i]);
         newItems.push(newItem);
       }
     }
 
     urlInput.current.value = '';
-    setUrlsSet(new Set([...urlsSet, ...urlItems]));
+    setUrlsSet(tempSet);
     setUrls([...urls, ...newItems]);
-  }
-
-  function checkForDuplicate(url) {
-    return urlsSet.has(url);
   }
 
   function promiseRace(promises) {
