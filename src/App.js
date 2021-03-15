@@ -91,6 +91,12 @@ function App() {
     const responses = makeParallelLimitedRequests(urls, Number(maxRequestsInput.current.value) || 20);
   }
 
+  function addMockData() {
+    const mockData = 'https://jsonplaceholder.typicode.com/posts/1, https://jsonplaceholder.typicode.com/posts/2, https://jsonplaceholder.typicode.com/posts/1, 45';
+    urlInput.current.value = mockData;
+    addNewUrlItem();
+  }
+
   return (
     <div className="App">
       <h1>
@@ -112,6 +118,12 @@ function App() {
           onClick={addNewUrlItem}
         >
           Добавить
+        </button>
+        <button
+          type="button"
+          onClick={addMockData}
+        >
+          Use mock data
         </button>
         <div>
           Введите максимальное число одновременных запросов:
